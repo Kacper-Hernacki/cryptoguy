@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios';
 import Navbar from './components/navbar/Navbar';
+import Feed from './components/feed/Feed';
 
 function App() {
   const [coins, setCoins] = useState([]);
@@ -19,7 +20,8 @@ function App() {
 
   return (
     <div className="app">
-      <Navbar />
+      <Navbar coins={coins} />
+      <Feed />
     </div>
   );
 }
