@@ -13,7 +13,6 @@ function App() {
       )
       .then((res) => {
         setCoins(res.data);
-        console.log(res.data);
       })
       .catch((err) => alert('Error with network'));
   }, []);
