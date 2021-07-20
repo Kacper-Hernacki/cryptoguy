@@ -1,0 +1,19 @@
+.feed__header {
+  display: flex;
+  margin-top: 20px;
+}
+
+.feed__headerName {
+  flex: 0.25;
+  text-align: center;
+}
+
+.feed__headerRight {
+  display: flex;
+  flex: 0.75;
+}
+
+.feed__headerRight > h4 {
+  flex: 0.2;
+  text-align: center;
+}

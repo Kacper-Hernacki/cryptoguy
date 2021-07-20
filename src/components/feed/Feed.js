@@ -13,15 +13,26 @@ function Feed() {
   const coins = useSelector(selectCoins);
 
   useEffect(() => {
-    if (filteredCoins !== [null]) {
+    if (filteredCoins.length > 0) {
       setFiltered(true);
     } else {
-      setFiltered(true);
+      setFiltered(false);
     }
   }, [filteredCoins]);
+  console.log(coins);
 
   return (
     <div className="feed">
+      <div className="feed__header">
+        <h4 className="feed__headerName">Coin</h4>
+        <div className="feed__headerRight">
+          <h4>Symbol</h4>
+          <h4>Price</h4>
+          <h4>Total Volume</h4>
+          <h4>Price Change</h4>
+          <h4>Market Cap</h4>
+        </div>
+      </div>
       {filtered ? (
         <div className="feed__coins">
           {filteredCoins?.map((coin) => {
@@ -31,8 +42,10 @@ function Feed() {
                 name={coin.name}
                 image={coin.image}
                 symbol={coin.symbol}
-                volume={coin.market_cap}
+                volume={coin.total_volume}
                 price={coin.current_price}
+                priceChange={coin.price_change_percentage_24h}
+                marketCap={coin.market_cap}
               />
             );
           })}
@@ -48,6 +61,8 @@ function Feed() {
                 symbol={coin.symbol}
                 volume={coin.market_cap}
                 price={coin.current_price}
+                priceChange={coin.price_change_percentage_24h}
+                marketCap={coin.market_cap}
               />
             );
           })}

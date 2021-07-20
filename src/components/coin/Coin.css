@@ -1,0 +1,43 @@
+.coin__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+}
+
+.coin__basics {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 0.25;
+}
+
+.coin__basics > img {
+  width: 50px;
+  margin-right: 10px;
+}
+
+.coin__basics > h1 {
+  font-size: 20px;
+}
+
+.coin__data {
+  display: flex;
+  flex: 0.75;
+}
+
+.coin__data > p {
+  flex: 0.2;
+  text-align: center;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
