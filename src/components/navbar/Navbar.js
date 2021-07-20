@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './Navbar.css';
-import { useDispatch, useSelector } from 'react-redux';
+// Reducer stuff
+import { useDispatch } from 'react-redux';
 import { setFilteredCoins } from '../../features/filteredCoinsSlice';
+import { selectCoins } from '../../features/coinsSlice';
+import { useSelector } from 'react-redux';
 
-function Navbar({ coins }) {
+function Navbar() {
   const [search, setSearch] = useState('');
   const dispatch = useDispatch();
+  const coins = useSelector(selectCoins);
 
   useEffect(() => {
     storeFilteredCoins();
-    console.log(filteredCoins);
   }, [search]);
 
   const filteredCoins = coins.filter((coin) =>
