@@ -38,6 +38,7 @@ function Feed() {
           {filteredCoins?.map((coin) => {
             return (
               <Coin
+                id={coin.id}
                 key={coin.id}
                 name={coin.name}
                 image={coin.image}

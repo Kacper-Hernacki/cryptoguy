@@ -1,12 +1,14 @@
 import { useEffect } from 'react';
 import './App.css';
 import axios from 'axios';
-import Navbar from './components/navbar/Navbar';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 // Components
 import Feed from './components/feed/Feed';
+import Navbar from './components/navbar/Navbar';
 // Reducer stuff
 import { useDispatch } from 'react-redux';
 import { setCoins } from './features/coinsSlice';
+import CoinData from './pages/coinData/CoinData';
 
 function App() {
   const dispatch = useDispatch();
@@ -27,10 +29,21 @@ function App() {
   }, []);
 
   return (
-    <div className="app">
-      <Navbar />
-      <Feed />
-    </div>
+    <>
+      <Router>
+        <Switch>
+          <Route path="/coins/:coinId">
+            <CoinData />
+          </Route>
+          <Route path="/">
+            <div className="app">
+              <Navbar />
+              <Feed />
+            </div>
+          </Route>
+        </Switch>
+      </Router>
+    </>
   );
 }
 
