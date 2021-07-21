@@ -28,13 +28,14 @@ function Navbar() {
   };
 
   return (
-    <div className="navbar">
+    <div data-testid="navbar" className="navbar">
       <h1 className="navbar__header">
         Crypto<span>GUY</span>
       </h1>
       <div className="navbar__search">
         <form>
           <input
+            data-testid="search-input"
             onChange={(e) => setSearch(e.target.value)}
             value={search}
             type="text"

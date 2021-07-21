@@ -22,7 +22,7 @@ function Feed() {
   console.log(coins);
 
   return (
-    <div className="feed">
+    <div data-testid="feed" className="feed">
       <div className="feed__header">
         <h4 className="feed__headerName">Coin</h4>
         <div className="feed__headerRight">
