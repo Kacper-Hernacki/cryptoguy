@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import store from '../../../app/store';
 import '@testing-library/jest-dom/extend-expect';
 import Coin from '../Coin';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 test('render coins', async () => {
   const fakeCoins = [
@@ -18,9 +19,11 @@ test('render coins', async () => {
   ];
   const { getAllByTestId } = render(
     <Provider store={store}>
-      {fakeCoins?.map((coin) => {
-        return <Coin key={coin.id} name={coin.name} />;
-      })}
+      <Router>
+        {fakeCoins?.map((coin) => {
+          return <Coin key={coin.id} name={coin.name} />;
+        })}
+      </Router>
     </Provider>
   );
   const coinData = getAllByTestId('coin-name').map((li) => li.textContent);

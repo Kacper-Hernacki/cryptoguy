@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import './App.css';
 import axios from 'axios';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 // Components
 import Feed from './components/feed/Feed';
 import Navbar from './components/navbar/Navbar';
@@ -9,6 +9,7 @@ import Navbar from './components/navbar/Navbar';
 import { useDispatch } from 'react-redux';
 import { setCoins } from './features/coinsSlice';
 import CoinData from './pages/coinData/CoinData';
+import Login from './pages/login/Login';
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +33,9 @@ function App() {
     <>
       <Router>
         <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
           <Route path="/coins/:coinId">
             <CoinData />
           </Route>
