@@ -35,6 +35,7 @@ function Navbar() {
       <div className="navbar__search">
         <form>
           <input
+            className="navbar__input"
             data-testid="search-input"
             onChange={(e) => setSearch(e.target.value)}
             value={search}
@@ -43,6 +44,7 @@ function Navbar() {
           />
         </form>
       </div>
+      <button>Login</button>
     </div>
   );
 }

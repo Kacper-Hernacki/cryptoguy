@@ -1,6 +1,9 @@
 .feed__header {
   display: flex;
-  margin-top: 20px;
+  padding-top: 80px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: #fdfeff;
 }
 
 .feed__headerName {

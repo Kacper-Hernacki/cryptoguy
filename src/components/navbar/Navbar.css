@@ -2,6 +2,41 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-
+  position: fixed;
   padding: 10px;
+  z-index: 1;
+  background-color: #1f2029;
+  width: 100vw;
+}
+
+.navbar__header {
+  color: #fdfeff;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.navbar > button {
+  background-color: #ff922f;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 20px;
+  color: #1f2029;
+  font-size: 13px;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.navbar > button:hover {
+  background-color: #fc9c43;
+}
+
+.navbar__input {
+  padding: 10px;
+  border-radius: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border: 1px solid black;
 }
