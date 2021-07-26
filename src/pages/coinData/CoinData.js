@@ -9,8 +9,6 @@ function CoinData() {
   const { coinId } = useParams();
   const coins = useSelector(selectCoins);
 
-  console.log(coins);
-
   let result = coins.find((obj) => obj.name === coinId);
   console.table(result);
 
