@@ -37,7 +37,7 @@ function CoinData() {
         </div>
       </div>
       {/*++++++++++++++++++++++++++++++Chart++++++++++++++++++++++++++++++*/}
-      <ChartBox />
+      <ChartBox id={result?.id} coinId={coinId} />
       {/*++++++++++++++++++++++++++++++Chart++++++++++++++++++++++++++++++*/}
       <div className="coinData__priceData">
         <div className="coinData__priceFlow">

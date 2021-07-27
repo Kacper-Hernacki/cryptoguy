@@ -2,10 +2,11 @@ import React from 'react';
 import './ChartBox.css';
 import LineChart from './LineChart';
 
-function ChartBox() {
+function ChartBox({ id, coinId }) {
   return (
     <div className="chart">
-      <LineChart />
+      <h1>Chart</h1>
+      <LineChart coinId={coinId} id={id} />
     </div>
   );
 }
