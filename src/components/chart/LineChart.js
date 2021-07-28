@@ -4,6 +4,9 @@ import { Line } from 'react-chartjs-2';
 
 const LineChart = ({ coinId, id }) => {
   const [coinDataDaily, setCoinDataDaily] = useState([]);
+  const [coinDataWeekly, setCoinDataWeekly] = useState([]);
+  const [coinDataMonthly, setCoinDataMonthly] = useState([]);
+  const [coinDataYearly, setCoinDataYearly] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -20,6 +23,70 @@ const LineChart = ({ coinId, id }) => {
       .catch((err) => alert('Error with network'));
     setIsLoading(false);
   }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get(
+        'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1'
+      )
+      .then((res) => {
+        setCoinDataWeekly({
+          coins: res.data,
+        });
+      })
+      .catch((err) => alert('Error with network'));
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get(
+        'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1'
+      )
+      .then((res) => {
+        setCoinDataMonthly({
+          coins: res.data,
+        });
+      })
+      .catch((err) => alert('Error with network'));
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get(
+        'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1'
+      )
+      .then((res) => {
+        setCoinDataYearly({
+          coins: res.data,
+        });
+      })
+      .catch((err) => alert('Error with network'));
+    setIsLoading(false);
+  }, []);
+
+  console.table(coinDataYearly?.coins?.prices);
+
+  // const formatData = (data) => {
+  //   return data.map((el)=>{
+  //     return(
+  //       t: el[0],
+  //       y: el[1],
+  //     )
+  //   })
+  // }
+
+  const toObject = (arr) => {
+    var rv = {};
+    for (var i = 0; i < arr.length; ++i) rv[i] = arr[i];
+    return rv;
+  };
+
+  console.log(toObject(coinDataYearly?.coins?.prices));
 
   return (
     <div>
