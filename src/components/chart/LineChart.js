@@ -86,44 +86,43 @@ const LineChart = ({ coinId, id }) => {
   //   })
   // }
 
-  function toObject(arr) {
+  //  const formData = (arr) => {
+  //   const result = [];
+  //   if (arr !== undefined) {
+      
+  //     return arr.map((el) => {
+  //       let data = toObject(el);
+  //       result.push(data);
+  //     return result
+  //     });
+  //   }
+
+  //   console.log(result)
+  // };
+
+    function toObject(arr) {
     var rv = {};
     for (var i = 0; i < arr?.length; ++i)
       if (arr[i] !== undefined) rv[i] = arr[i];
     return rv;
   }
 
-  const object = toObject(coinDataYearly?.coins?.prices);
-  console.log(object);
 
-  const array = coinDataYearly?.coins?.prices;
+  console.log(coinDataYearly?.coins?.prices);
 
-  console.log('exp>>>', toObject(object[0]));
-
-  console.log('basic', coinDataYearly?.coins?.prices);
-  console.log(toObject(coinDataYearly?.coins?.prices));
-
-  const iterable = new Map(array);
-  console.log('iterable', iterable);
-
-  for (const entry of iterable) {
-    var rv = { entry };
-  }
-
-  function toChart(arr) {
-    var result = [];
-    var element = {};
-    for (var i = 0; i < arr?.length; ++i) {
-      for (var j = 0; j < arr?.length; ++j) {
-        return (element[j] = arr[j]);
-      }
-      return (result[i] = arr[i]);
+  const formData = (arr) => {
+    if (arr !== undefined) {
+      
+      var result = arr.map( );
+        
+      
     }
-    return result;
-  }
 
-  console.log('readyyyyyyy', toChart(object));
-  console.log('readyyyyyyy----oooooo', toChart(array));
+  
+  };
+  console.log('result', formData(coinDataYearly?.coins?.prices));
+
+
   return (
     <div>
       <Line
