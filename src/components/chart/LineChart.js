@@ -3,73 +3,79 @@ import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 
 const LineChart = ({ coinId, id }) => {
-  const [coinDataDaily, setCoinDataDaily] = useState([]);
-  const [coinDataWeekly, setCoinDataWeekly] = useState([]);
-  const [coinDataMonthly, setCoinDataMonthly] = useState([]);
+  const [coinDataDaily, setCoinDataDaily] = useState({});
+  const [coinDataWeekly, setCoinDataWeekly] = useState({});
+  const [coinDataMonthly, setCoinDataMonthly] = useState({});
   const [coinDataYearly, setCoinDataYearly] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
-    axios
-      .get(
-        'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1'
-      )
-      .then((res) => {
-        setCoinDataDaily({
-          coins: res.data,
-        });
-      })
-      .catch((err) => alert('Error with network'));
+    if (id) {
+      axios
+        .get(
+          `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=1`
+        )
+        .then((res) => {
+          setCoinDataDaily({
+            coins: res.data,
+          });
+        })
+        .catch((err) => alert('Error with network'));
+    }
+
     setIsLoading(false);
   }, []);
 
   useEffect(() => {
     setIsLoading(true);
-    axios
-      .get(
-        'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1'
-      )
-      .then((res) => {
-        setCoinDataWeekly({
-          coins: res.data,
+    if (id) {
+      axios
+        .get(
+          `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=1`
+        )
+        .then((res) => {
+          setCoinDataWeekly({
+            coins: res.data,
+          });
         });
-      })
-      .catch((err) => alert('Error with network'));
+    }
     setIsLoading(false);
   }, []);
 
   useEffect(() => {
     setIsLoading(true);
-    axios
-      .get(
-        'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1'
-      )
-      .then((res) => {
-        setCoinDataMonthly({
-          coins: res.data,
-        });
-      })
-      .catch((err) => alert('Error with network'));
+    if (id) {
+      axios
+        .get(
+          `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=1`
+        )
+        .then((res) => {
+          setCoinDataMonthly({
+            coins: res.data,
+          });
+        })
+        .catch((err) => alert('Error with network'));
+    }
     setIsLoading(false);
   }, []);
 
   useEffect(() => {
     setIsLoading(true);
-    axios
-      .get(
-        'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1'
-      )
-      .then((res) => {
-        setCoinDataYearly({
-          coins: res.data,
-        });
-      })
-      .catch((err) => alert('Error with network'));
+    if (id) {
+      axios
+        .get(
+          `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=1`
+        )
+        .then((res) => {
+          setCoinDataYearly({
+            coins: res.data,
+          });
+        })
+        .catch((err) => alert('Error with network'));
+    }
     setIsLoading(false);
   }, []);
-
-  console.table(coinDataYearly?.coins?.prices);
 
   // const formatData = (data) => {
   //   return data.map((el)=>{
@@ -80,14 +86,44 @@ const LineChart = ({ coinId, id }) => {
   //   })
   // }
 
-  const toObject = (arr) => {
+  function toObject(arr) {
     var rv = {};
-    for (var i = 0; i < arr.length; ++i) rv[i] = arr[i];
+    for (var i = 0; i < arr?.length; ++i)
+      if (arr[i] !== undefined) rv[i] = arr[i];
     return rv;
-  };
+  }
 
+  const object = toObject(coinDataYearly?.coins?.prices);
+  console.log(object);
+
+  const array = coinDataYearly?.coins?.prices;
+
+  console.log('exp>>>', toObject(object[0]));
+
+  console.log('basic', coinDataYearly?.coins?.prices);
   console.log(toObject(coinDataYearly?.coins?.prices));
 
+  const iterable = new Map(array);
+  console.log('iterable', iterable);
+
+  for (const entry of iterable) {
+    var rv = { entry };
+  }
+
+  function toChart(arr) {
+    var result = [];
+    var element = {};
+    for (var i = 0; i < arr?.length; ++i) {
+      for (var j = 0; j < arr?.length; ++j) {
+        return (element[j] = arr[j]);
+      }
+      return (result[i] = arr[i]);
+    }
+    return result;
+  }
+
+  console.log('readyyyyyyy', toChart(object));
+  console.log('readyyyyyyy----oooooo', toChart(array));
   return (
     <div>
       <Line
