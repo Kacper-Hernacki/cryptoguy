@@ -10,7 +10,6 @@ function CoinData() {
   const coins = useSelector(selectCoins);
 
   let result = coins.find((obj) => obj.name === coinId);
-  console.table(result);
 
   return (
     <div data-testid="coin-data" className="coinData">
@@ -37,7 +36,7 @@ function CoinData() {
         </div>
       </div>
       {/*++++++++++++++++++++++++++++++Chart++++++++++++++++++++++++++++++*/}
-      <ChartBox id={result?.id} coinId={coinId} />
+      <ChartBox id={result?.id} />
       {/*++++++++++++++++++++++++++++++Chart++++++++++++++++++++++++++++++*/}
       <div className="coinData__priceData">
         <div className="coinData__priceFlow">

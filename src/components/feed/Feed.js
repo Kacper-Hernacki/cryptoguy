@@ -19,7 +19,6 @@ function Feed() {
       setFiltered(false);
     }
   }, [filteredCoins]);
-  console.log(coins);
 
   return (
     <div data-testid="feed" className="feed">

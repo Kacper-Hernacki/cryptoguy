@@ -1,12 +1,10 @@
 import axios from 'axios';
+import { response } from 'msw';
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 
-const LineChart = ({ coinId, id }) => {
+const LineChart = ({ id }) => {
   const [coinDataDaily, setCoinDataDaily] = useState({});
-  const [coinDataWeekly, setCoinDataWeekly] = useState({});
-  const [coinDataMonthly, setCoinDataMonthly] = useState({});
-  const [coinDataYearly, setCoinDataYearly] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -16,9 +14,10 @@ const LineChart = ({ coinId, id }) => {
         .get(
           `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=1`
         )
-        .then((res) => {
+
+        .then((data) => {
           setCoinDataDaily({
-            coins: res.data,
+            coins: data.data,
           });
         })
         .catch((err) => alert('Error with network'));
@@ -27,101 +26,25 @@ const LineChart = ({ coinId, id }) => {
     setIsLoading(false);
   }, []);
 
-  useEffect(() => {
-    setIsLoading(true);
-    if (id) {
-      axios
-        .get(
-          `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=1`
-        )
-        .then((res) => {
-          setCoinDataWeekly({
-            coins: res.data,
-          });
-        });
+  const buildChartData = (data) => {
+    const chartData = [];
+    if (data !== undefined) {
+      data['prices'].forEach((date) => {
+        //
+        const newDataPoint = {
+          x: date[0],
+          y: date[1],
+        };
+        chartData.push(newDataPoint);
+      });
+      return chartData;
+    } else {
+      return chartData;
     }
-    setIsLoading(false);
-  }, []);
-
-  useEffect(() => {
-    setIsLoading(true);
-    if (id) {
-      axios
-        .get(
-          `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=1`
-        )
-        .then((res) => {
-          setCoinDataMonthly({
-            coins: res.data,
-          });
-        })
-        .catch((err) => alert('Error with network'));
-    }
-    setIsLoading(false);
-  }, []);
-
-  useEffect(() => {
-    setIsLoading(true);
-    if (id) {
-      axios
-        .get(
-          `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=1`
-        )
-        .then((res) => {
-          setCoinDataYearly({
-            coins: res.data,
-          });
-        })
-        .catch((err) => alert('Error with network'));
-    }
-    setIsLoading(false);
-  }, []);
-
-  // const formatData = (data) => {
-  //   return data.map((el)=>{
-  //     return(
-  //       t: el[0],
-  //       y: el[1],
-  //     )
-  //   })
-  // }
-
-  //  const formData = (arr) => {
-  //   const result = [];
-  //   if (arr !== undefined) {
-      
-  //     return arr.map((el) => {
-  //       let data = toObject(el);
-  //       result.push(data);
-  //     return result
-  //     });
-  //   }
-
-  //   console.log(result)
-  // };
-
-    function toObject(arr) {
-    var rv = {};
-    for (var i = 0; i < arr?.length; ++i)
-      if (arr[i] !== undefined) rv[i] = arr[i];
-    return rv;
-  }
-
-
-  console.log(coinDataYearly?.coins?.prices);
-
-  const formData = (arr) => {
-    if (arr !== undefined) {
-      
-      var result = arr.map( );
-        
-      
-    }
-
-  
   };
-  console.log('result', formData(coinDataYearly?.coins?.prices));
 
+  console.log('func', buildChartData(coinDataDaily?.coins));
+  console.log('coinDataDaliy', coinDataDaily);
 
   return (
     <div>
@@ -178,3 +101,99 @@ const LineChart = ({ coinId, id }) => {
 };
 
 export default LineChart;
+
+// const [coinDataWeekly, setCoinDataWeekly] = useState({});
+// const [coinDataMonthly, setCoinDataMonthly] = useState({});
+// const [coinDataYearly, setCoinDataYearly] = useState({});
+
+// const formatData = (data) => {
+//   return data.map((el)=>{
+//     return(
+//       t: el[0],
+//       y: el[1],
+//     )
+//   })
+// }
+
+//  const formData = (arr) => {
+//   const result = [];
+//   if (arr !== undefined) {
+
+//     return arr.map((el) => {
+//       let data = toObject(el);
+//       result.push(data);
+//     return result
+//     });
+//   }
+
+//   console.log(result)
+// };
+
+//   function toObject(arr) {
+//   var rv = {};
+//   for (var i = 0; i < arr?.length; ++i)
+//     if (arr[i] !== undefined) rv[i] = arr[i];
+//   return rv;
+// }
+
+// console.log(coinDataYearly?.coins?.prices);
+
+// const formData = (arr) => {
+//   if (arr !== undefined) {
+
+//     var result = arr.map( );
+
+//   }
+
+// };
+// console.log('result', formData(coinDataYearly?.coins?.prices));
+
+// useEffect(() => {
+//   setIsLoading(true);
+//   if (id) {
+//     axios
+//       .get(
+//         `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=1`
+//       )
+//       .then((res) => {
+//         setCoinDataWeekly({
+//           coins: res.data,
+//         });
+//       });
+//   }
+//   setIsLoading(false);
+// }, []);
+
+// useEffect(() => {
+//   setIsLoading(true);
+//   if (id) {
+//     axios
+//       .get(
+//         `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=1`
+//       )
+//       .then((res) => {
+//         setCoinDataMonthly({
+//           coins: res.data,
+//         });
+//       })
+//       .catch((err) => alert('Error with network'));
+//   }
+//   setIsLoading(false);
+// }, []);
+
+// useEffect(() => {
+//   setIsLoading(true);
+//   if (id) {
+//     axios
+//       .get(
+//         `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=1`
+//       )
+//       .then((res) => {
+//         setCoinDataYearly({
+//           coins: res.data,
+//         });
+//       })
+//       .catch((err) => alert('Error with network'));
+//   }
+//   setIsLoading(false);
+// }, []);
