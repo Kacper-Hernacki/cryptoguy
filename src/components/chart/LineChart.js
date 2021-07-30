@@ -2,9 +2,83 @@ import axios from 'axios';
 import { response } from 'msw';
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
+import numeral from 'numeral';
+
+const options_v2 = {
+  lineHeightAnnotation: {
+    always: true,
+    hover: false,
+    lineWeight: 1.5,
+  },
+  animation: {
+    duration: 2000,
+  },
+  maintainAspectRatio: false,
+  scales: {
+    xAxes: [{ type: 'time', distribution: 'linear' }],
+    yAxes: [
+      {
+        ticks: {
+          beginAtZero: true,
+        },
+      },
+    ],
+  },
+  legend: {
+    labels: {
+      fontSize: 25,
+    },
+  },
+};
+
+const options = {
+  legend: {
+    display: false,
+  },
+  elements: {
+    points: {
+      radius: 0,
+    },
+  },
+  maintainAspectRatio: false,
+  tooltips: {
+    mode: 'index',
+    intersect: false,
+    callbacks: {
+      label: function (tooltipItem, data) {
+        return numeral(tooltipItem.value).format('+0,0');
+      },
+    },
+  },
+  scales: {
+    xAxes: [
+      {
+        type: 'time',
+        time: {
+          format: 'MM/DD/YY',
+          tooltipFormat: 'll',
+        },
+      },
+    ],
+    yAxes: [
+      {
+        gridLines: {
+          display: false,
+        },
+        ticks: {
+          callback: function (value, index, values) {
+            return numeral(value).format('0a');
+          },
+        },
+      },
+    ],
+  },
+};
 
 const LineChart = ({ id }) => {
   const [coinDataDaily, setCoinDataDaily] = useState({});
+  const [coinData, setCoinData] = useState({});
+  const [xLabel, setXLabel] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -26,6 +100,25 @@ const LineChart = ({ id }) => {
     setIsLoading(false);
   }, []);
 
+  useEffect(() => {
+    setCoinData(buildChartData(coinDataDaily?.coins));
+  }, [coinDataDaily]);
+
+  const xLabeling = (data) => {
+    const labelData = [];
+    if (data !== undefined) {
+      data?.forEach((label) => {
+        const newPoint = {
+          x: label.x,
+        };
+        labelData.push(newPoint);
+      });
+      return labelData;
+    } else {
+      return labelData;
+    }
+  };
+
   const buildChartData = (data) => {
     const chartData = [];
     if (data !== undefined) {
@@ -43,64 +136,58 @@ const LineChart = ({ id }) => {
     }
   };
 
-  console.log('func', buildChartData(coinDataDaily?.coins));
-  console.log('coinDataDaliy', coinDataDaily);
+  console.log(coinData);
+  console.log(xLabeling(coinData));
 
   return (
     <div>
       <Line
+        options={options_v2}
         data={{
           labels: [1, 2, 3, 4, 5, 6],
           datasets: [
             {
-              label: 'Price',
-              data: [12, 19, 3, 5, 2, 3],
-              backgroundColor: ['rgba(255, 99, 132, 0.2)'],
-              borderColor: ['rgba(255, 99, 132, 1)'],
-              borderWidth: 1,
-            },
-            {
-              label: 'Quantity',
-              data: [47, 52, 67, 58, 9, 50],
-              backgroundColor: 'orange',
-              borderColor: 'red',
+              backgroundColor: 'rgba(204,16,53,0.5)',
+              borderColor: '#CC1034',
+              data: coinData,
             },
           ],
         }}
         height={400}
         width={600}
-        options={{
-          lineHeightAnnotation: {
-            always: true,
-            hover: false,
-            lineWeight: 1.5,
-          },
-          animation: {
-            duration: 2000,
-          },
-          maintainAspectRatio: false,
-          scales: {
-            xAxes: [{ type: 'time', distribution: 'linear' }],
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true,
-                },
-              },
-            ],
-          },
-          legend: {
-            labels: {
-              fontSize: 25,
-            },
-          },
-        }}
       />
     </div>
   );
 };
 
 export default LineChart;
+
+// {
+//   lineHeightAnnotation: {
+//     always: true,
+//     hover: false,
+//     lineWeight: 1.5,
+//   },
+//   animation: {
+//     duration: 2000,
+//   },
+//   maintainAspectRatio: false,
+//   scales: {
+//     xAxes: [{ type: 'time', distribution: 'linear' }],
+//     yAxes: [
+//       {
+//         ticks: {
+//           beginAtZero: true,
+//         },
+//       },
+//     ],
+//   },
+//   legend: {
+//     labels: {
+//       fontSize: 25,
+//     },
+//   },
+// }
 
 // const [coinDataWeekly, setCoinDataWeekly] = useState({});
 // const [coinDataMonthly, setCoinDataMonthly] = useState({});
